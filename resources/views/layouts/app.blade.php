@@ -43,7 +43,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
@@ -126,11 +126,11 @@
             xhr.open('POST', '{{ route('verify.email.otp') }}', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.setRequestHeader('X-CSRF-Token', token);
-            console.log(xhr);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         alert('Email verified successfully!');
+                        xhr.abort();
                     } else {
                         alert('Invalid OTP. Please try again.');
                         // You may want to handle failed verification differently
@@ -143,7 +143,31 @@
 
         // Attach click event to the initial "Verify" button
         document.getElementById('verifyEmail').addEventListener('click', verifyEmail);
-    });
+    })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to handle Phone OTP verification
+            function verifyPhone() {
+                var phone = document.querySelector('input[name="phone"]').value;
+
+                // AJAX request to send OTP
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{{ route('send.phone.otp') }}', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert('OTP sent to your phone. Check your messages.');
+                    }
+                };
+
+                xhr.send('phone=' + phone);
+            }
+
+            // Attach click event to the Verify Phone button
+            document.getElementById('verifyPhone').addEventListener('click', verifyPhone);
+        });
     </script>
 
     </body>

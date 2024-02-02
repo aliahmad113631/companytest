@@ -18,4 +18,5 @@ Route::get('/register', [SignUpController::class, 'showForm'])->name('signup.for
 Route::post('/signup', [SignUpController::class, 'signUp'])->name('signup.submit');
 Route::post('/send-email-otp', [SignUpController::class, 'sendEmailOtp'])->name('send.email.otp');
 Route::post('/verify-email-otp', [SignUpController::class, 'verifyEmailOtp'])->name('verify.email.otp');
+Route::post('/send-phone-otp', [SignUpController::class, 'sendPhoneOtp'])->name('send.phone.otp');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

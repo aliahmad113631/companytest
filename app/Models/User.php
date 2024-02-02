@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email','country', 'phone', 'gender','email_otp','phone_otp'
     ];
 
     /**
@@ -25,9 +25,6 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
 
     /**
      * The attributes that should be cast to native types.
